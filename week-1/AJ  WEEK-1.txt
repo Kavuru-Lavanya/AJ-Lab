@@ -1,0 +1,199 @@
+ AJ LAB WEEK-1                                                        
+
+1.Develop A Java Program to print prime numbers upto given number?
+
+ Program:
+        
+     import java.util.Scanner;
+
+      class Prime {
+        public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        System.out.print("Enter n value: ");
+        int n = sc.nextInt();
+
+        System.out.print("Prime numbers are:\n");
+
+        for (int num = 2; num <= n; num++) {
+            int count = 0;
+
+            for (int i = 1; i <= num; i++) {
+                if (num % i == 0) {
+                    count++;
+                }
+            }
+
+            if (count == 2) {
+                System.out.print(num + " ");
+            }
+        }
+
+        sc.close();
+    }
+}
+
+  Output:
+   Enter n value: 20
+   Prime numbers are:
+   2 3 5 7 11 13 17 19
+
+
+2.Develop a java program to print areas of all shapes for a given case?
+
+   Program:
+
+      import java.util.*;
+
+      public class Area {
+
+      public static void main(String[] args) {
+
+        Scanner sc = new Scanner(System.in);
+
+        int choice;
+        double l, b, base, height, side, radius;
+
+        System.out.println("1. Rectangle");
+        System.out.println("2. Triangle");
+        System.out.println("3. Square");
+        System.out.println("4. Circle");
+
+        System.out.print("Enter your choice (1-4): ");
+        choice = sc.nextInt();
+
+        switch (choice) {
+
+            case 1:
+                System.out.print("Enter length and breadth: ");
+                l = sc.nextDouble();
+                b = sc.nextDouble();
+                System.out.println("Area: " + (l * b));
+                break;
+
+            case 2:
+                System.out.print("Enter base and height: ");
+                base = sc.nextDouble();
+                height = sc.nextDouble();
+                System.out.println("Area: " + (0.5 * base * height));
+                break;
+
+            case 3:
+                System.out.print("Enter side: ");
+                side = sc.nextDouble();
+                System.out.println("Area: " + (side * side));
+                break;
+
+            case 4:
+                System.out.print("Enter radius: ");
+                radius = sc.nextDouble();
+                System.out.println("Area: " + (Math.PI * Math.pow(radius, 2)));
+                break;
+
+            default:
+                System.out.println("Invalid Choice");
+        }
+
+        sc.close();
+    }
+}
+
+  Output:
+
+   1. Rectangle
+   2. Triangle
+   3. Square
+   4. Circle
+  Enter your choice (1-4): 1
+  Enter length and breadth: 10 5
+  Area: 50.0
+
+3.
+
+   PROGRAM:
+   import java.util.Scanner;
+
+public class JavaLab {
+    void Lab() {
+        System.out.println("Welcome to Advance Java Lab");
+    }
+
+    void greet() {
+        Scanner sc = new Scanner(System.in);
+
+        System.out.print("Enter hi: ");
+        String s = sc.nextLine();
+
+        if (s.equalsIgnoreCase("hi")) {
+            System.out.println("Hello Hi");
+        } else {
+            System.out.println("Invalid Input");
+        }
+    }
+
+    void calculator() {
+        Scanner sc = new Scanner(System.in);
+
+        System.out.print("Enter first number: ");
+        int a = sc.nextInt();
+
+        System.out.print("Enter second number: ");
+        int b = sc.nextInt();
+
+        System.out.print("Enter operator (+, -, *, /): ");
+        char op = sc.next().charAt(0);
+
+        switch (op) {
+            case '+':
+                System.out.println("Result = " + (a + b));
+                break;
+            case '-':
+                System.out.println("Result = " + (a - b));
+                break;
+            case '*':
+                System.out.println("Result = " + (a * b));
+                break;
+            case '/':
+                if (b != 0)
+                    System.out.println("Result = " + (a / b));
+                else
+                    System.out.println("Cannot divide by zero");
+                break;
+            default:
+                System.out.println("Invalid Operator");
+        }
+    }
+
+    void Bye() {
+        Scanner sc = new Scanner(System.in);
+
+        System.out.print("Enter bye: ");
+        sc.nextLine(); 
+        String s = sc.nextLine();
+
+        if (s.equalsIgnoreCase("bye")) {
+            System.out.println("Thank You");
+        } else {
+            System.out.println("Invalid Input");
+        }
+    }
+    public static void main(String[] args) {
+        JavaLab obj = new JavaLab();
+
+        obj.Lab();
+        obj.greet();
+        obj.calculator();
+        obj.Bye();
+    }
+}
+
+Output:
+Welcome to Advance Java Lab
+Enter hi: hi
+Hello Hi
+Enter first number: 20
+Enter second number: 10
+Enter operator (+, -, *, /): +
+Result = 30
+Enter bye: bye
+Thank You
