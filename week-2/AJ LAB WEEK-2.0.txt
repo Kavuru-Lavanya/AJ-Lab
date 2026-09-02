@@ -1,0 +1,164 @@
+AJ LAB WEEK-2.0
+
+
+
+
+1.Write a JDBC application which will interact with Database and perform the following task. 
+      a. Create Student Table with RollNo, Name, and Address field and insert few records. 
+      b. Using PreparedStatement Object display the content of Record. 
+      c. Using PreparedStatement Object Insert Two Record. 
+      d. Using PreparedStatement Object Update One Record. 
+      e. Using PreparedStatement Object Delete One Record. 
+      f. Using PreparedStatement Object display the content of Record
+
+
+
+
+Program:
+
+import java.sql.*;
+
+public class StatementDB {
+
+    public static void main(String[] args) {
+
+        String url = "jdbc:mysql://localhost:3306/statementdb";
+        String user = "lavanya";
+        String password = "lavanya29";
+
+        try {
+
+            Class.forName("com.mysql.cj.jdbc.Driver");
+
+            Connection con = DriverManager.getConnection(url, user, password);
+
+            String createTable = "CREATE TABLE IF NOT EXISTS students ("
+                    + "rollno INT PRIMARY KEY,"
+                    + "name VARCHAR(50),"
+                    + "address VARCHAR(100))";
+
+            Statement stmt = con.createStatement();
+            stmt.executeUpdate(createTable);
+
+            System.out.println("Table created successfully");
+
+            String insertSQL = "INSERT INTO students (rollno, name, address) "
+                    + "VALUES (?, ?, ?)";
+
+            PreparedStatement insertStmt = con.prepareStatement(insertSQL);
+
+            insertStmt.setInt(1, 1);
+            insertStmt.setString(2, "Ravi");
+            insertStmt.setString(3, "Hyderabad");
+            insertStmt.executeUpdate();
+
+            insertStmt.setInt(1, 2);
+            insertStmt.setString(2, "Sita");
+            insertStmt.setString(3, "Chennai");
+            insertStmt.executeUpdate();
+
+            insertStmt.setInt(1, 3);
+            insertStmt.setString(2, "Kiran");
+            insertStmt.setString(3, "Bangalore");
+            insertStmt.executeUpdate();
+
+            System.out.println("Initial Records Inserted");
+
+            displayRecords(con);
+
+            insertStmt.setInt(1, 4);
+            insertStmt.setString(2, "Meena");
+            insertStmt.setString(3, "Pune");
+            insertStmt.executeUpdate();
+
+            insertStmt.setInt(1, 5);
+            insertStmt.setString(2, "Ramesh");
+            insertStmt.setString(3, "Mumbai");
+            insertStmt.executeUpdate();
+
+            System.out.println("Two new records inserted");
+
+            String updateSQL = "UPDATE students SET address=? WHERE rollno=?";
+
+            PreparedStatement updateStmt = con.prepareStatement(updateSQL);
+
+            updateStmt.setString(1, "Delhi");
+            updateStmt.setInt(2, 2);
+
+            updateStmt.executeUpdate();
+
+            System.out.println("One record updated");
+
+            String deleteSQL = "DELETE FROM students WHERE rollno=?";
+
+            PreparedStatement deleteStmt = con.prepareStatement(deleteSQL);
+
+            deleteStmt.setInt(1, 3);
+
+            deleteStmt.executeUpdate();
+
+            System.out.println("One record deleted");
+
+            System.out.println("Final Records:");
+
+            displayRecords(con);
+
+            insertStmt.close();
+            updateStmt.close();
+            deleteStmt.close();
+            stmt.close();
+            con.close();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void displayRecords(Connection con) throws SQLException {
+
+        String selectSQL = "SELECT * FROM students";
+
+        PreparedStatement selectStmt = con.prepareStatement(selectSQL);
+
+        ResultSet rs = selectStmt.executeQuery();
+
+        System.out.println("RollNo\tName\tAddress");
+
+        while (rs.next()) {
+
+            int roll = rs.getInt("rollno");
+            String name = rs.getString("name");
+            String address = rs.getString("address");
+
+            System.out.println(roll + "\t" + name + "\t" + address);
+        }
+
+        rs.close();
+        selectStmt.close();
+    }
+}
+
+
+
+
+Output:
+
+Table created successfully
+Initial Records Inserted
+
+RollNo  Name    Address
+1       Ravi    Hyderabad
+2       Sita    Chennai
+3       Kiran   Bangalore
+
+Two new records inserted
+One record updated
+One record deleted
+
+Final Records:
+
+RollNo  Name    Address
+1       Ravi    Hyderabad
+2       Sita    Delhi
+4       Meena   Pune
+5       Ramesh  Mumbai
